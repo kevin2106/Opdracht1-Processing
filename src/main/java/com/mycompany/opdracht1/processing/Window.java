@@ -5,8 +5,13 @@
  */
 package com.mycompany.opdracht1.processing;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.parser.ParseException;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -23,13 +28,21 @@ public class Window extends PApplet {
     ArrayList<Earthquake> earthquakeList;
 
     public void setup() {
-        size(799, 649);
-        frame.setTitle("Earthquakes");
-        image = loadImage("Map_Iceland_799x649.png");
-
-        JSONReader reader = new JSONReader();
-        JSONArray data = reader.getData();
-        earthquakeList = reader.convertToList(data);
+        try {
+            size(799, 649);
+            frame.setTitle("Earthquakes");
+            image = loadImage("Map_Iceland_799x649.png");
+            
+            JSONReader reader = new JSONReader();
+            //JSONArray data = reader.getData();
+            JSONArray localData = reader.getLocalData();
+            //earthquakeList = reader.convertToList(data);
+            earthquakeList = reader.convertToList(localData);
+        } catch (IOException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -68,9 +81,7 @@ public class Window extends PApplet {
                 this.text(depthText, lattitude - 15, longitude + height - 8);
 
             }
-
         }
-
     }
 
     private void drawLegenda() {
@@ -113,5 +124,4 @@ public class Window extends PApplet {
         this.textFont(font);
         this.text("Earthquakes in Iceland", 300, 60);
     }
-
 }

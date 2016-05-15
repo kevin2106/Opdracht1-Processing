@@ -6,7 +6,12 @@
 package com.mycompany.opdracht1.processing;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import static java.lang.String.format;
 import static java.lang.String.format;
@@ -21,14 +26,31 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.parser.JSONParser;
 import processing.data.JSONArray;
-import processing.data.JSONObject;
 
+import processing.data.JSONObject;
 /**
  *
  * @author Kevin
  */
 public class JSONReader {
+    public JSONArray getLocalData() throws FileNotFoundException, IOException, org.json.simple.parser.ParseException{
+        JSONArray array = new JSONArray();
+
+        ClassLoader classLoader = getClass().getClassLoader();
+	File file = new File(classLoader.getResource("test.json").getFile());
+        
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String jsonText = br.readLine();
+        
+        JSONObject jsonObj = JSONObject.parse(jsonText);
+        
+        array = jsonObj.getJSONArray("results");
+        
+        return array;
+    }
+    
     public JSONArray getData(){
         JSONArray array = new JSONArray();
         try {
