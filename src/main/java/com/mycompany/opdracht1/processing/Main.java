@@ -11,8 +11,11 @@ import processing.data.JSONArray;
  *
  * @author Kevin
  */
+import java.util.ArrayList;
 public class Main {
     public static void main(String[] args){
         Window.main("com.mycompany.opdracht1.processing.Window");
+        
+        
     }
 }

@@ -119,9 +119,14 @@ public class Earthquake {
         this.humanReadableLocation = humanReadableLocation;
     }
     
-    public void convertLat(){
+    public float convertLat(){
         float mapLat = map(getLatitude(), 63.1f, 66.8f, 0, 649);
+        return mapLat;
+        
+    }
+    public float convertLong(){
         float mapLong = map(getLongitude(), -25.0f, -13.0f, 0, 799);
+        return mapLong;
     }
     
 }

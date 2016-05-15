@@ -11,20 +11,16 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <repositories>
-    <!-- ... -->
     <repository>
         <id>clojars.org</id>
         <url>http://clojars.org/repo</url>
     </repository>
-    <!-- ... -->
 </repositories>
 <dependencies>
-    <!-- ... -->
     <dependency>
         <groupId>quil</groupId>
         <artifactId>processing-core</artifactId>
         <version>2.2.1</version>
     </dependency>
-    <!-- ... -->
 </dependencies>
 </project>

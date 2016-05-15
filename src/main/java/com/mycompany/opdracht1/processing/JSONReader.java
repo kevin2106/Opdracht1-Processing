@@ -48,8 +48,9 @@ public class JSONReader {
       return array;
     }
     
-    public ArrayList<Earthquake> convertToList(JSONArray array) throws ParseException{
+    public ArrayList<Earthquake> convertToList(JSONArray array){
         ArrayList<Earthquake> list = new ArrayList();
+        System.out.println(array.size());
         if(array != null){
             for(int i =0; i < array.size(); i++){
                 Earthquake earthquake = new Earthquake();
@@ -63,9 +64,15 @@ public class JSONReader {
                 String dateString = array.getJSONObject(i).getString("timestamp");
                 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-                Date date = dateFormat.parse(dateString);
+                Date date;
+                try {
+                    date = dateFormat.parse(dateString);
+                    earthquake.setTimestamp(date);
+                } catch (ParseException ex) {
+                    Logger.getLogger(JSONReader.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
-                earthquake.setTimestamp(date);
+                list.add(earthquake);
             }         
         }
         return list;
